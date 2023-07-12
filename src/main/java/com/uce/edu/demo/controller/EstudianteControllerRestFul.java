@@ -9,7 +9,7 @@ import com.uce.edu.demo.estudiante.modelo.Estudiante;
 import com.uce.edu.demo.estudiante.service.IEstudianteService;
 
 @RestController
-@RequestMapping("/estudiante")
+@RequestMapping("/estudiantes")
 public class EstudianteControllerRestFul {
 
 	@Autowired
