@@ -10,11 +10,17 @@ import com.uce.edu.demo.estudiante.repository.IEstudianteRepository;
 public class EstudianteServiceImpl implements IEstudianteService {
 
 	@Autowired
-	private IEstudianteRepository iEstudianteJpaRepository;
+	private IEstudianteRepository iEstudianteRepository;
 	
 	@Override
 	public Estudiante buscarPorCedula(String cedula) {
 		// TODO Auto-generated method stub
-		return this.iEstudianteJpaRepository.buscarPorCedula(cedula);
+		return this.iEstudianteRepository.buscarPorCedula(cedula);
+	}
+
+	@Override
+	public void guardar(Estudiante estudiante) {
+		// TODO Auto-generated method stub
+		this.iEstudianteRepository.insertar(estudiante);
 	}
 }
