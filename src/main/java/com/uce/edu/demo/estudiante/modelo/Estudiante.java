@@ -27,6 +27,8 @@ public class Estudiante {
 	private String apellido;
 	@Column(name="fecha_nacimiento")
 	private LocalDateTime fechaNacimiento;
+	@Column(name="provincia")
+	private String provincia;
 
 	@Override
 	public String toString() {
@@ -74,4 +76,13 @@ public class Estudiante {
 	public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+	
 }
