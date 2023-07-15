@@ -25,26 +25,30 @@ public class EstudianteControllerRestFul {
 	private IEstudianteService estudianteService;
 	
 	//GET
-	@GetMapping(path="/buscar/{cedula}")
+	@GetMapping(path="/{cedula}")
 	public Estudiante consultarPorCedula(@PathVariable String cedula) {
 		return this.estudianteService.buscarPorCedula(cedula);
 	}
 	
-	@PostMapping(path="/guardar")
+
+	@GetMapping
+	public List<Estudiante> buscarTodos() {
+		return this.estudianteService.buscarTodos();	
+	}
+	
+	@PostMapping
 	public void guardar(@RequestBody Estudiante estudiante) {
 		this.estudianteService.guardar(estudiante);
 	}
 	
-	@PutMapping(path="/actualizar/{identificador}")
+	@PutMapping(path="/{identificador}")
 	public void actualizar(@RequestBody Estudiante estudiante,@PathVariable Integer identificador) {
-//		Integer identificador=1;
 		estudiante.setId(identificador);
 		this.estudianteService.actualizar(estudiante);
 	}
 	
-	@PatchMapping(path="/actualizarParcial/{identificador}")
+	@PatchMapping(path="/{identificador}")
 	public void actualizarParcial(@RequestBody Estudiante estudiante,@PathVariable Integer identificador) {
-//		Integer identificador=1;
 		estudiante.setId(identificador);
 		String cedula="1234567";
 		Estudiante estu1=this.estudianteService.buscarPorCedula(cedula);
@@ -52,14 +56,9 @@ public class EstudianteControllerRestFul {
 		this.estudianteService.actualizar(estu1);
 	}
 
-	@DeleteMapping(path="/borrar/{id}")
+	@DeleteMapping(path="/{id}")
 	public void borrar(@PathVariable Integer id) {
 		this.estudianteService.borrar(id);
-	}
-	
-	@GetMapping(path="/buscarTodos")
-	public List<Estudiante> buscarTodos() {
-		return this.estudianteService.buscarTodos();	
 	}
 	
 	@GetMapping(path="/buscarTodosPorProvincia")
