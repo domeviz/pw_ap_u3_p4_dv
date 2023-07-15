@@ -21,6 +21,8 @@ public class Materia {
 	private String codigo;
 	@Column(name="nombre")
 	private String nombre;
+	@Column(name="carrera")
+	private String carrera;
 
 	@Override
 	public String toString() {
@@ -50,6 +52,14 @@ public class Materia {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getCarrera() {
+		return carrera;
+	}
+
+	public void setCarrera(String carrera) {
+		this.carrera = carrera;
 	}
 	
 }

@@ -21,7 +21,6 @@ public class PwApiU3P4DvApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println(this.materiaControllerRestFul.consultarPorCodigo());
 	}
 
 }
