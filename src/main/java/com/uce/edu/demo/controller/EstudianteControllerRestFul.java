@@ -3,6 +3,9 @@ package com.uce.edu.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,14 +29,26 @@ public class EstudianteControllerRestFul {
 	
 	//GET
 	@GetMapping(path="/{cedula}")
-	public Estudiante consultarPorCedula(@PathVariable String cedula) {
-		return this.estudianteService.buscarPorCedula(cedula);
+	public ResponseEntity<Estudiante> consultarPorCedula(@PathVariable String cedula) {
+		Estudiante estudiante=this.estudianteService.buscarPorCedula(cedula);
+
+		return ResponseEntity.status(227).body(estudiante);
+	}
+
+	@GetMapping(path="/status/{cedula}")
+	public ResponseEntity<Estudiante> consultarPorCedulaStatus(@PathVariable String cedula) {
+		Estudiante estudiante=this.estudianteService.buscarPorCedula(cedula);
+
+		return ResponseEntity.status(HttpStatus.OK).body(estudiante);
 	}
 	
 
 	@GetMapping
-	public List<Estudiante> buscarTodos() {
-		return this.estudianteService.buscarTodos();	
+	public ResponseEntity<List<Estudiante>> buscarTodos() {
+		List<Estudiante> estudiantes=this.estudianteService.buscarTodos();
+		HttpHeaders cabeceras=new HttpHeaders();
+		cabeceras.add("Detalle mensaje","Ciudadanos consultados exitosamente");
+		return new ResponseEntity<>(estudiantes,cabeceras,228);		
 	}
 	
 	@PostMapping
@@ -49,9 +64,7 @@ public class EstudianteControllerRestFul {
 	
 	@PatchMapping(path="/{identificador}")
 	public void actualizarParcial(@RequestBody Estudiante estudiante,@PathVariable Integer identificador) {
-		estudiante.setId(identificador);
-		String cedula="1234567";
-		Estudiante estu1=this.estudianteService.buscarPorCedula(cedula);
+		Estudiante estu1=this.estudianteService.buscarPorID(identificador);
 		estu1.setCedula(estudiante.getCedula());
 		this.estudianteService.actualizar(estu1);
 	}
