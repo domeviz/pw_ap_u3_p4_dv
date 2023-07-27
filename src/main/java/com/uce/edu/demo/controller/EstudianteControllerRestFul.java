@@ -3,7 +3,7 @@ package com.uce.edu.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uce.edu.demo.estudiante.modelo.Estudiante;
 import com.uce.edu.demo.estudiante.service.IEstudianteService;
+import com.uce.edu.demo.service.to.EstudianteTO;
+import com.uce.edu.demo.service.to.MateriaTO;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;;
 
 @RestController
 @RequestMapping("/estudiantes")
@@ -51,12 +54,20 @@ public class EstudianteControllerRestFul {
 		return e;
 	}
 	
-	@GetMapping
-	public ResponseEntity<List<Estudiante>> buscarTodos() {
-		List<Estudiante> estudiantes=this.estudianteService.buscarTodos();
-		HttpHeaders cabeceras=new HttpHeaders();
-		cabeceras.add("Detalle mensaje","Ciudadanos consultados exitosamente");
-		return new ResponseEntity<>(estudiantes,cabeceras,228);		
+	@GetMapping(path = "/hateoas")
+	public ResponseEntity<List<EstudianteTO>> consultarTodosHATEOAS() {
+		List<EstudianteTO> lista=this.estudianteService.buscarTodos();
+		for (EstudianteTO estudianteTO : lista) {
+            Link myLink=linkTo(methodOn(EstudianteControllerRestFul.class).buscarPorEstudiante(estudianteTO.getCedula())).withRel("materias");
+
+            estudianteTO.add(myLink);
+
+        }
+		return new ResponseEntity<>(lista,null,228);		
+	}
+	@GetMapping(path = "/{cedula}/materias")
+	public ResponseEntity<List<MateriaTO>> buscarPorEstudiante(@PathVariable String cedula) {
+		return null;
 	}
 	
 	@PostMapping
