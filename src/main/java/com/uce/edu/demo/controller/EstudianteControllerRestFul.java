@@ -20,10 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uce.edu.demo.estudiante.modelo.Estudiante;
 import com.uce.edu.demo.estudiante.service.IEstudianteService;
+import com.uce.edu.demo.estudiante.service.IMateriaService;
 import com.uce.edu.demo.service.to.EstudianteTO;
 import com.uce.edu.demo.service.to.MateriaTO;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/estudiantes")
@@ -31,6 +32,9 @@ public class EstudianteControllerRestFul {
 
 	@Autowired
 	private IEstudianteService estudianteService;
+	
+	@Autowired
+	private IMateriaService materiaService;
 	
 	//GET
 	@GetMapping(path="/{cedula}",produces=MediaType.APPLICATION_XML_VALUE)
@@ -54,7 +58,7 @@ public class EstudianteControllerRestFul {
 		return e;
 	}
 	
-	@GetMapping(path = "/hateoas")
+	@GetMapping(path = "/hateoas", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<EstudianteTO>> consultarTodosHATEOAS() {
 		List<EstudianteTO> lista=this.estudianteService.buscarTodos();
 		for (EstudianteTO estudianteTO : lista) {
@@ -65,9 +69,10 @@ public class EstudianteControllerRestFul {
         }
 		return new ResponseEntity<>(lista,null,228);		
 	}
-	@GetMapping(path = "/{cedula}/materias")
+	
+	@GetMapping(path = "/{cedula}/materias", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<MateriaTO>> buscarPorEstudiante(@PathVariable String cedula) {
-		return null;
+		return new ResponseEntity<>(this.materiaService.buscarPorCedulaEstudiante(cedula),null,200);
 	}
 	
 	@PostMapping
@@ -97,4 +102,5 @@ public class EstudianteControllerRestFul {
 	public List<Estudiante> buscarTodosPorProvincia(@RequestParam String provincia) {
 		return this.estudianteService.buscarTodosPorProvincia(provincia);	
 	}
+	
 }

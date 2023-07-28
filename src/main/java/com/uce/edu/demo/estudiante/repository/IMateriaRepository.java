@@ -21,5 +21,7 @@ public interface IMateriaRepository {
 	public List<Materia> buscarTodos();
 
 	public List<Materia> buscarTodosPorCarrera(String carrera);
+	
+	public List<Materia> buscarPorCedulaEstudiante(String cedula);
 
 }

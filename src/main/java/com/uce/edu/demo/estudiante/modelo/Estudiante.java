@@ -1,12 +1,14 @@
 package com.uce.edu.demo.estudiante.modelo;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -29,6 +31,9 @@ public class Estudiante {
 	private LocalDateTime fechaNacimiento;
 	@Column(name="provincia")
 	private String provincia;
+	
+	@OneToMany(mappedBy = "estudiante")
+	private List<Materia> materias;
 
 	@Override
 	public String toString() {
@@ -83,6 +88,14 @@ public class Estudiante {
 
 	public void setProvincia(String provincia) {
 		this.provincia = provincia;
+	}
+
+	public List<Materia> getMaterias() {
+		return materias;
+	}
+
+	public void setMaterias(List<Materia> materias) {
+		this.materias = materias;
 	}
 	
 }

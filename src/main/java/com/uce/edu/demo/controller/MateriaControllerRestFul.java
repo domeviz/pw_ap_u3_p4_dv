@@ -1,8 +1,16 @@
 package com.uce.edu.demo.controller;
 
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -16,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uce.edu.demo.estudiante.modelo.Materia;
 import com.uce.edu.demo.estudiante.service.IMateriaService;
+import com.uce.edu.demo.service.to.MateriaTO;
 
 @RestController
 @RequestMapping("/materias")
@@ -62,5 +71,14 @@ public class MateriaControllerRestFul {
 	@GetMapping(path="/buscarTodosPorCarrera")
 	public List<Materia> buscarTodosPorCarrera(@RequestParam String carrera) {
 		return this.iMateriaService.buscarTodosPorCarrera(carrera);
+	}
+	
+	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<MateriaTO> buscarPorMateria(@PathVariable Integer id) {
+//		MateriaTO materiaTO=this.iMateriaService.buscarPorID(id);
+//		Link myLink=linkTo(methodOn(MateriaControllerRestFul.class).buscarPorMateria(id)).withRel("materias");
+//		materiaTO.add(myLink);
+//		return ResponseEntity.status(HttpStatus.OK).body(materiaTO);
+		return null;
 	}
 }

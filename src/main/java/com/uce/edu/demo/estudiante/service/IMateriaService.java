@@ -3,6 +3,7 @@ package com.uce.edu.demo.estudiante.service;
 import java.util.List;
 
 import com.uce.edu.demo.estudiante.modelo.Materia;
+import com.uce.edu.demo.service.to.MateriaTO;
 
 public interface IMateriaService {
 
@@ -21,4 +22,6 @@ public interface IMateriaService {
 	public List<Materia> buscarTodos();
 
 	public List<Materia> buscarTodosPorCarrera(String carrera);
+	
+	public List<MateriaTO> buscarPorCedulaEstudiante(String cedula);
 }
