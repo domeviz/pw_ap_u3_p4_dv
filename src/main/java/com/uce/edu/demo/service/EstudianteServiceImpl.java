@@ -59,6 +59,15 @@ public class EstudianteServiceImpl implements IEstudianteService {
 		List<EstudianteTO> listaTO=lista.stream().map(estudiante->this.convertir(estudiante)).collect(Collectors.toList());
 		return listaTO;
 	}
+	
+	@Override
+	public List<EstudianteTO> buscarTodosProvQuemada() {
+		// TODO Auto-generated method stub
+		//Provincia quemada
+		List<Estudiante> lista=this.iEstudianteRepository.buscarTodosPorProvincia("azuay");
+		List<EstudianteTO> listaTO=lista.stream().map(estudiante->this.convertir(estudiante)).collect(Collectors.toList());
+		return listaTO;
+	}
 
 	private EstudianteTO convertir(Estudiante estudiante) {
 		EstudianteTO estudianteTO=new EstudianteTO();
@@ -74,5 +83,11 @@ public class EstudianteServiceImpl implements IEstudianteService {
 	public List<Estudiante> buscarTodosPorProvincia(String provincia) {
 		// TODO Auto-generated method stub
 		return this.iEstudianteRepository.buscarTodosPorProvincia(provincia);
+	}
+
+	@Override
+	public List<Estudiante> buscarTodos2() {
+		// TODO Auto-generated method stub
+		return this.iEstudianteRepository.buscarTodos();
 	}
 }

@@ -1,12 +1,17 @@
 package com.uce.edu.demo.controller;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -23,11 +28,10 @@ import com.uce.edu.demo.service.IEstudianteService;
 import com.uce.edu.demo.service.IMateriaService;
 import com.uce.edu.demo.service.to.EstudianteTO;
 import com.uce.edu.demo.service.to.MateriaTO;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/estudiantes")
+@CrossOrigin
 public class EstudianteControllerRestFul {
 
 	@Autowired
@@ -37,7 +41,7 @@ public class EstudianteControllerRestFul {
 	private IMateriaService materiaService;
 	
 	//GET
-	@GetMapping(path="/{cedula}",produces=MediaType.APPLICATION_XML_VALUE)
+	@GetMapping(path="/{cedula}",produces=MediaType.APPLICATION_JSON_VALUE)
 //	@ResponseStatus(HttpStatus.CONFLICT)
 	public Estudiante consultarPorCedula(@PathVariable String cedula) {
 		return this.estudianteService.buscarPorCedula(cedula);
@@ -58,11 +62,32 @@ public class EstudianteControllerRestFul {
 		return e;
 	}
 	
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Estudiante>> buscarTodos2() {
+		List<Estudiante> estudiantes=this.estudianteService.buscarTodos2();
+		HttpHeaders cabeceras=new HttpHeaders();
+		cabeceras.add("Detalle mensaje","Ciudadanos consultados exitosamente");
+		return new ResponseEntity<>(estudiantes,cabeceras,228);	
+	}
+	
 	@GetMapping(path = "/hateoas", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<EstudianteTO>> consultarTodosHATEOAS() {
 		List<EstudianteTO> lista=this.estudianteService.buscarTodos();
 		for (EstudianteTO estudianteTO : lista) {
             Link myLink=linkTo(methodOn(EstudianteControllerRestFul.class).buscarPorEstudiante(estudianteTO.getCedula())).withRel("materias");
+
+            estudianteTO.add(myLink);
+
+        }
+		return new ResponseEntity<>(lista,null,228);		
+	}
+	
+	@GetMapping(path = "/prov", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<EstudianteTO>> consultarTodosPROV() {
+		//Consultar todos con la provincia quemada en el Service
+		List<EstudianteTO> lista=this.estudianteService.buscarTodosProvQuemada();
+		for (EstudianteTO estudianteTO : lista) {
+            Link myLink=linkTo(methodOn(EstudianteControllerRestFul.class).buscarPorEstudiante(estudianteTO.getProvincia())).withRel("materias");
 
             estudianteTO.add(myLink);
 
