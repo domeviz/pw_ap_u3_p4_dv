@@ -1,12 +1,12 @@
-package com.uce.edu.demo.estudiante.service;
+package com.uce.edu.demo.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.uce.edu.demo.estudiante.modelo.Horario;
-import com.uce.edu.demo.estudiante.repository.IHorarioRepository;
+import com.uce.edu.demo.repository.IHorarioRepository;
+import com.uce.edu.demo.repository.modelo.Horario;
 
 @Service
 public class HorarioServiceImpl implements IHorarioService {

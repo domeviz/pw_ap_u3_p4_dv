@@ -1,4 +1,4 @@
-package com.uce.edu.demo.estudiante.service;
+package com.uce.edu.demo.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.uce.edu.demo.estudiante.modelo.Materia;
-import com.uce.edu.demo.estudiante.repository.IMateriaRepository;
+import com.uce.edu.demo.repository.IMateriaRepository;
+import com.uce.edu.demo.repository.modelo.Materia;
 import com.uce.edu.demo.service.to.MateriaTO;
 
 @Service
@@ -78,5 +78,12 @@ public class MateriaServiceImpl implements IMateriaService {
 		mat.setNombre(materia.getNombre());
 		mat.setNumeroCreditos(materia.getNumeroCreditos());
 		return mat;
+	}
+
+	@Override
+	public MateriaTO buscarId(Integer id) {
+		// TODO Auto-generated method stub
+		Materia materia=this.iMateriaRepository.buscarId(id);
+        return convertir(materia);
 	}
 }

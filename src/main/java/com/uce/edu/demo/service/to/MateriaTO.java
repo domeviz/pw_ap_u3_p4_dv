@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 import org.springframework.hateoas.RepresentationModel;
 
-//extends RepresentationModel<MateriaTO> 
-public class MateriaTO implements Serializable {
+public class MateriaTO extends RepresentationModel<MateriaTO>  implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	

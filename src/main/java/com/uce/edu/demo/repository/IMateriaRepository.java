@@ -1,8 +1,9 @@
-package com.uce.edu.demo.estudiante.repository;
+package com.uce.edu.demo.repository;
 
 import java.util.List;
 
-import com.uce.edu.demo.estudiante.modelo.Materia;
+import com.uce.edu.demo.repository.modelo.Materia;
+import com.uce.edu.demo.service.to.MateriaTO;
 
 public interface IMateriaRepository {
 
@@ -23,5 +24,7 @@ public interface IMateriaRepository {
 	public List<Materia> buscarTodosPorCarrera(String carrera);
 	
 	public List<Materia> buscarPorCedulaEstudiante(String cedula);
+	
+	public Materia buscarId(Integer id);
 
 }

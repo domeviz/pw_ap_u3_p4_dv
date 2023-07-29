@@ -1,4 +1,4 @@
-package com.uce.edu.demo.estudiante.service;
+package com.uce.edu.demo.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.uce.edu.demo.estudiante.modelo.Estudiante;
-import com.uce.edu.demo.estudiante.repository.IEstudianteRepository;
+import com.uce.edu.demo.repository.IEstudianteRepository;
+import com.uce.edu.demo.repository.modelo.Estudiante;
 import com.uce.edu.demo.service.to.EstudianteTO;
 
 @Service
@@ -62,6 +62,7 @@ public class EstudianteServiceImpl implements IEstudianteService {
 
 	private EstudianteTO convertir(Estudiante estudiante) {
 		EstudianteTO estudianteTO=new EstudianteTO();
+		estudianteTO.setNombre(estudiante.getNombre());
 		estudianteTO.setApellido(estudiante.getApellido());
 		estudianteTO.setCedula(estudiante.getCedula());
 		estudianteTO.setId(estudiante.getId());

@@ -1,16 +1,15 @@
-package com.uce.edu.demo.estudiante.service;
+package com.uce.edu.demo.repository;
 
 import java.util.List;
 
-import com.uce.edu.demo.estudiante.modelo.Estudiante;
-import com.uce.edu.demo.service.to.EstudianteTO;
+import com.uce.edu.demo.repository.modelo.Estudiante;
 
-public interface IEstudianteService {
+public interface IEstudianteRepository {
 
 	public Estudiante buscarPorCedula(String cedula);
 	
-	public void guardar(Estudiante estudiante);
-	
+	public void insertar(Estudiante estudiante);
+
 	public void actualizar(Estudiante estudiante);
 	
 	public void actualizarPorcedula(String cedulaActual, String cedulaNueva);
@@ -19,7 +18,7 @@ public interface IEstudianteService {
 	
 	public Estudiante buscarPorID(Integer id);
 	
-	public List<EstudianteTO> buscarTodos();
+	public List<Estudiante> buscarTodos();
 	
 	public List<Estudiante> buscarTodosPorProvincia(String provincia);
 }

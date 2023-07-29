@@ -1,6 +1,5 @@
 package com.uce.edu.demo.controller;
 
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -22,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uce.edu.demo.estudiante.modelo.Materia;
-import com.uce.edu.demo.estudiante.service.IMateriaService;
+import com.uce.edu.demo.repository.modelo.Materia;
+import com.uce.edu.demo.service.IMateriaService;
 import com.uce.edu.demo.service.to.MateriaTO;
 
 @RestController
@@ -75,10 +74,9 @@ public class MateriaControllerRestFul {
 	
 	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<MateriaTO> buscarPorMateria(@PathVariable Integer id) {
-//		MateriaTO materiaTO=this.iMateriaService.buscarPorID(id);
-//		Link myLink=linkTo(methodOn(MateriaControllerRestFul.class).buscarPorMateria(id)).withRel("materias");
-//		materiaTO.add(myLink);
-//		return ResponseEntity.status(HttpStatus.OK).body(materiaTO);
-		return null;
+		MateriaTO materiaTO=this.iMateriaService.buscarId(id);
+		Link myLink=linkTo(methodOn(MateriaControllerRestFul.class).buscarPorMateria(id)).withRel("materias");
+		materiaTO.add(myLink);
+		return ResponseEntity.status(HttpStatus.OK).body(materiaTO);
 	}
 }

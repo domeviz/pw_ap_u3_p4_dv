@@ -1,10 +1,10 @@
-package com.uce.edu.demo.estudiante.repository;
+package com.uce.edu.demo.repository;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.uce.edu.demo.estudiante.modelo.Estudiante;
+import com.uce.edu.demo.repository.modelo.Estudiante;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

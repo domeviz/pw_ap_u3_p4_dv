@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uce.edu.demo.estudiante.modelo.Estudiante;
-import com.uce.edu.demo.estudiante.service.IEstudianteService;
-import com.uce.edu.demo.estudiante.service.IMateriaService;
+import com.uce.edu.demo.repository.modelo.Estudiante;
+import com.uce.edu.demo.service.IEstudianteService;
+import com.uce.edu.demo.service.IMateriaService;
 import com.uce.edu.demo.service.to.EstudianteTO;
 import com.uce.edu.demo.service.to.MateriaTO;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;

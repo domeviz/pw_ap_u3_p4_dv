@@ -1,4 +1,4 @@
-package com.uce.edu.demo.estudiante.modelo;
+package com.uce.edu.demo.repository.modelo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

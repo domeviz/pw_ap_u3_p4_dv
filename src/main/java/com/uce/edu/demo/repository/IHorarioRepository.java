@@ -1,8 +1,8 @@
-package com.uce.edu.demo.estudiante.repository;
+package com.uce.edu.demo.repository;
 
 import java.util.List;
 
-import com.uce.edu.demo.estudiante.modelo.Horario;
+import com.uce.edu.demo.repository.modelo.Horario;
 
 public interface IHorarioRepository {
 

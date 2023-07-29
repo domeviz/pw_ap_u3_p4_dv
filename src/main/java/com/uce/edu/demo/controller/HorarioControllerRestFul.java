@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uce.edu.demo.estudiante.modelo.Horario;
-import com.uce.edu.demo.estudiante.service.IHorarioService;
+import com.uce.edu.demo.repository.modelo.Horario;
+import com.uce.edu.demo.service.IHorarioService;
 
 @RestController
 @RequestMapping("/horarios")
