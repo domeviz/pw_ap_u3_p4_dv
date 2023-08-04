@@ -54,7 +54,7 @@ public class EstudianteControllerRestFul {
 		return ResponseEntity.status(HttpStatus.OK).body(estudiante);
 	}
 	
-	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path="/gyc/",consumes=MediaType.APPLICATION_JSON_VALUE)
 //	@ResponseStatus(HttpStatus.CONFLICT)
 	public Estudiante guardarYConsultar(@RequestBody Estudiante estudiante) {
 		this.estudianteService.guardar(estudiante);
@@ -100,7 +100,7 @@ public class EstudianteControllerRestFul {
 		return new ResponseEntity<>(this.materiaService.buscarPorCedulaEstudiante(cedula),null,200);
 	}
 	
-	@PostMapping
+	@PostMapping(consumes =MediaType.APPLICATION_JSON_VALUE)
 	public void guardar(@RequestBody Estudiante estudiante) {
 		this.estudianteService.guardar(estudiante);
 	}
@@ -118,14 +118,21 @@ public class EstudianteControllerRestFul {
 		this.estudianteService.actualizar(estu1);
 	}
 
-	@DeleteMapping(path="/{id}")
-	public void borrar(@PathVariable Integer id) {
-		this.estudianteService.borrar(id);
-	}
+//	@DeleteMapping(path="/{id}")
+//	public void borrar(@PathVariable Integer id) {
+//		this.estudianteService.borrar(id);
+//	}
 	
 	@GetMapping(path="/buscarTodosPorProvincia")
 	public List<Estudiante> buscarTodosPorProvincia(@RequestParam String provincia) {
 		return this.estudianteService.buscarTodosPorProvincia(provincia);	
 	}
+	
+	@DeleteMapping(path="/{id}")
+	public Estudiante borrar(@PathVariable Integer id) {
+        Estudiante estu=this.estudianteService.buscarPorID(id);
+        this.estudianteService.borrar(id);
+        return estu;
+    }
 	
 }
