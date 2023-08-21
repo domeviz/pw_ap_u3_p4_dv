@@ -13,8 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.preauth.websphere.WebSpherePreAuthenticatedWebAuthenticationDetailsSource;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -28,20 +27,22 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
     	String jwt=this.parseJwt(request);
-    	try {
+    	
     	if(jwt !=null && this.jwtUtils.validateJwtToken(jwt)) {
+    		try {
     		//Como es valido el token le voy a autenticar
     		String nombre=this.jwtUtils.getUsernameFromJwtToken(jwt);
     		//Le autenticamos
     		UsernamePasswordAuthenticationToken authentication=new UsernamePasswordAuthenticationToken(nombre, null,new ArrayList<>());
-    		authentication.setDetails(new WebSpherePreAuthenticatedWebAuthenticationDetailsSource().buildDetails(request));
+    		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
     		//Seteamos la autenticacion en la session
     		SecurityContextHolder.getContext().setAuthentication(authentication);
-    		}
+    		
     	}catch(Exception e) {
     		LOG.error("No se pudo realizar la autenticacion con el token enviado: {}",e.getMessage());
     	}
     	filterChain.doFilter(request, response);
+    	}
     }
     
     private String parseJwt(HttpServletRequest request) {

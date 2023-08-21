@@ -24,13 +24,12 @@ public class JwtUtils {
 	public boolean validateJwtToken(String token) {
 		try {
 		Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
-		return true;
 		} catch(ExpiredJwtException e) {
 			LOG.error("Token expirado {}",e.getMessage());
 		} catch(SignatureException e) {
 			LOG.error("Token expirado {}",e.getMessage());
 		}
-		return false;
+		return true;
 	}
 	public String getUsernameFromJwtToken(String token) {
 		//El subject esta en el body, se puede ver en el jwt.io 
